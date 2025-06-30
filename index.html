@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Challenge Arena - Age-Adaptive Gaming</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Age Selection Screen -->
+        <div class="screen active" id="age-selection">
+            <div class="age-selection-content">
+                <div class="logo-section">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <h1 class="game-title">Mind Challenge Arena</h1>
+                    <p class="game-subtitle">Experience games tailored to your age and skill level</p>
+                </div>
+                
+                <div class="age-groups">
+                    <div class="age-group-card" data-age="child" data-range="5-12">
+                        <div class="age-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3>Kids Zone</h3>
+                        <p>Ages 5-12</p>
+                        <span class="game-type">Color Memory & Simple Puzzles</span>
+                    </div>
+                    
+                    <div class="age-group-card" data-age="teen" data-range="13-17">
+                        <div class="age-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Teen Challenge</h3>
+                        <p>Ages 13-17</p>
+                        <span class="game-type">Pattern Recognition & Logic</span>
+                    </div>
+                    
+                    <div class="age-group-card" data-age="adult" data-range="18-59">
+                        <div class="age-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Adult Arena</h3>
+                        <p>Ages 18-59</p>
+                        <span class="game-type">Strategy & Complex Puzzles</span>
+                    </div>
+                    
+                    <div class="age-group-card" data-age="senior" data-range="60+">
+                        <div class="age-icon">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <h3>Senior League</h3>
+                        <p>Ages 60+</p>
+                        <span class="game-type">Memory & Relaxed Puzzles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="screen" id="game-screen">
+            <div class="game-header">
+                <div class="game-info">
+                    <h2 id="game-title-header">Memory Challenge</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <i class="fas fa-clock"></i>
+                            <span id="timer">00:00</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="score">0</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-trophy"></i>
+                            <span id="level">1</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-exit" id="exit-game">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="game-area">
+                <!-- Memory Game Grid -->
+                <div class="memory-game" id="memory-game">
+                    <div class="game-grid" id="game-grid"></div>
+                </div>
+
+                <!-- Pattern Game -->
+                <div class="pattern-game hidden" id="pattern-game">
+                    <div class="pattern-display" id="pattern-display"></div>
+                    <div class="pattern-input" id="pattern-input"></div>
+                    <button class="btn-primary" id="pattern-submit">Submit Pattern</button>
+                </div>
+
+                <!-- Math Game -->
+                <div class="math-game hidden" id="math-game">
+                    <div class="math-question" id="math-question"></div>
+                    <div class="math-options" id="math-options"></div>
+                </div>
+
+                <!-- Word Game -->
+                <div class="word-game hidden" id="word-game">
+                    <div class="word-display" id="word-display"></div>
+                    <div class="word-input-container">
+                        <input type="text" id="word-input" placeholder="Type the word you remember...">
+                        <button class="btn-primary" id="word-submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-instructions" id="game-instructions">
+                <p>Click on the cards to find matching pairs!</p>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="screen" id="results-screen">
+            <div class="results-content">
+                <div class="results-header">
+                    <i class="fas fa-trophy results-icon"></i>
+                    <h2>Congratulations!</h2>
+                    <p class="results-message" id="results-message">You've completed the challenge!</p>
+                </div>
+
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <span class="stat-label">Final Score</span>
+                        <span class="stat-value" id="final-score">0</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Time Taken</span>
+                        <span class="stat-value" id="final-time">00:00</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Levels Completed</span>
+                        <span class="stat-value" id="final-level">1</span>
+                    </div>
+                </div>
+
+                <div class="discount-section">
+                    <div class="discount-card">
+                        <i class="fas fa-gift discount-icon"></i>
+                        <h3>Special Reward!</h3>
+                        <p>Use this exclusive discount code:</p>
+                        <div class="discount-code" id="discount-code">GAME10OFF</div>
+                        <p class="discount-note">Valid for 10% off your next purchase</p>
+                        <button class="btn-copy" id="copy-code">
+                            <i class="fas fa-copy"></i>
+                            Copy Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn-primary" id="play-again">Play Again</button>
+                    <button class="btn-secondary" id="change-age">Change Age Group</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div class="loading-overlay" id="loading">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p>Preparing your personalized game...</p>
+            </div>
+        </div>
+
+        <!-- Particles Background -->
+        <div class="particles-container" id="particles"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
