@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Memory Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Age Selection Screen -->
+  <section id="age-screen" class="screen active">
+    <div class="container">
+      <h1>Welcome to the Memory Challenge</h1>
+      <p>Select your age to begin:</p>
+      <form id="ageForm">
+        <input type="number" id="ageInput" placeholder="Enter your age" min="1" max="120" required />
+        <button type="submit" class="btn">Start Game</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Game Screen -->
+  <section id="game-screen" class="screen">
+    <div class="container">
+      <h2 id="game-title"></h2>
+      <div id="gameStats">
+        <span id="moves">Moves: 0</span>
+        <span id="timer">Time: 0s</span>
+      </div>
+      <div id="gameBoard" class="board"></div>
+    </div>
+  </section>
+
+  <!-- Discount Modal -->
+  <div id="discountModal" class="modal">
+    <div class="modal-content">
+      <h2>Congratulations! 🎉</h2>
+      <p>You have completed the challenge.</p>
+      <p class="discount">Use code <strong>SAVE10</strong> for 10% OFF!</p>
+      <button id="playAgain" class="btn">Play Again</button>
+    </div>
+  </div>
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
