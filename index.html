@@ -1,180 +1,250 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mind Challenge Arena - Age-Adaptive Gaming</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>هوش مصنوعی پیشرفته - آینده‌ای نو در دستان شما</title>
+    <meta name="description" content="پلتفرم پیشرفته هوش مصنوعی برای ایجاد راه‌حل‌های نوآورانه">
+    
+    <!-- Google Fonts - Vazirmatn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <!-- Age Selection Screen -->
-        <div class="screen active" id="age-selection">
-            <div class="age-selection-content">
-                <div class="logo-section">
-                    <i class="fas fa-brain logo-icon"></i>
-                    <h1 class="game-title">Mind Challenge Arena</h1>
-                    <p class="game-subtitle">Experience games tailored to your age and skill level</p>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo -->
+                <div class="nav-logo">
+                    <h2>AI<span class="logo-accent">نو</span></h2>
                 </div>
                 
-                <div class="age-groups">
-                    <div class="age-group-card" data-age="child" data-range="5-12">
-                        <div class="age-icon">
-                            <i class="fas fa-child"></i>
-                        </div>
-                        <h3>Kids Zone</h3>
-                        <p>Ages 5-12</p>
-                        <span class="game-type">Color Memory & Simple Puzzles</span>
-                    </div>
-                    
-                    <div class="age-group-card" data-age="teen" data-range="13-17">
-                        <div class="age-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h3>Teen Challenge</h3>
-                        <p>Ages 13-17</p>
-                        <span class="game-type">Pattern Recognition & Logic</span>
-                    </div>
-                    
-                    <div class="age-group-card" data-age="adult" data-range="18-59">
-                        <div class="age-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <h3>Adult Arena</h3>
-                        <p>Ages 18-59</p>
-                        <span class="game-type">Strategy & Complex Puzzles</span>
-                    </div>
-                    
-                    <div class="age-group-card" data-age="senior" data-range="60+">
-                        <div class="age-icon">
-                            <i class="fas fa-user-clock"></i>
-                        </div>
-                        <h3>Senior League</h3>
-                        <p>Ages 60+</p>
-                        <span class="game-type">Memory & Relaxed Puzzles</span>
-                    </div>
+                <!-- Navigation Links -->
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#projects" class="nav-link">پروژه‌ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">درباره ما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">تماس</a>
+                    </li>
+                </ul>
+                
+                <!-- CTA Button -->
+                <div class="nav-cta">
+                    <button class="cta-button">شروع کنید</button>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                 </div>
             </div>
-        </div>
+        </nav>
+    </header>
 
-        <!-- Game Screen -->
-        <div class="screen" id="game-screen">
-            <div class="game-header">
-                <div class="game-info">
-                    <h2 id="game-title-header">Memory Challenge</h2>
-                    <div class="stats">
-                        <div class="stat">
-                            <i class="fas fa-clock"></i>
-                            <span id="timer">00:00</span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-star"></i>
-                            <span id="score">0</span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-trophy"></i>
-                            <span id="level">1</span>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn-exit" id="exit-game">
-                    <i class="fas fa-times"></i>
-                </button>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-background">
+                <div class="particle" style="--delay: 0s;"></div>
+                <div class="particle" style="--delay: 2s;"></div>
+                <div class="particle" style="--delay: 4s;"></div>
+                <div class="particle" style="--delay: 6s;"></div>
+                <div class="particle" style="--delay: 8s;"></div>
             </div>
-
-            <div class="game-area">
-                <!-- Memory Game Grid -->
-                <div class="memory-game" id="memory-game">
-                    <div class="game-grid" id="game-grid"></div>
-                </div>
-
-                <!-- Pattern Game -->
-                <div class="pattern-game hidden" id="pattern-game">
-                    <div class="pattern-display" id="pattern-display"></div>
-                    <div class="pattern-input" id="pattern-input"></div>
-                    <button class="btn-primary" id="pattern-submit">Submit Pattern</button>
-                </div>
-
-                <!-- Math Game -->
-                <div class="math-game hidden" id="math-game">
-                    <div class="math-question" id="math-question"></div>
-                    <div class="math-options" id="math-options"></div>
-                </div>
-
-                <!-- Word Game -->
-                <div class="word-game hidden" id="word-game">
-                    <div class="word-display" id="word-display"></div>
-                    <div class="word-input-container">
-                        <input type="text" id="word-input" placeholder="Type the word you remember...">
-                        <button class="btn-primary" id="word-submit">Submit</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="game-instructions" id="game-instructions">
-                <p>Click on the cards to find matching pairs!</p>
-            </div>
-        </div>
-
-        <!-- Results Screen -->
-        <div class="screen" id="results-screen">
-            <div class="results-content">
-                <div class="results-header">
-                    <i class="fas fa-trophy results-icon"></i>
-                    <h2>Congratulations!</h2>
-                    <p class="results-message" id="results-message">You've completed the challenge!</p>
-                </div>
-
-                <div class="results-stats">
-                    <div class="result-stat">
-                        <span class="stat-label">Final Score</span>
-                        <span class="stat-value" id="final-score">0</span>
-                    </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Time Taken</span>
-                        <span class="stat-value" id="final-time">00:00</span>
-                    </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Levels Completed</span>
-                        <span class="stat-value" id="final-level">1</span>
-                    </div>
-                </div>
-
-                <div class="discount-section">
-                    <div class="discount-card">
-                        <i class="fas fa-gift discount-icon"></i>
-                        <h3>Special Reward!</h3>
-                        <p>Use this exclusive discount code:</p>
-                        <div class="discount-code" id="discount-code">GAME10OFF</div>
-                        <p class="discount-note">Valid for 10% off your next purchase</p>
-                        <button class="btn-copy" id="copy-code">
-                            <i class="fas fa-copy"></i>
-                            Copy Code
+            
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    آینده‌ای نو در
+                    <span class="title-accent">هوش مصنوعی</span>
+                </h1>
+                <p class="hero-description">
+                    با قدرت هوش مصنوعی پیشرفته، ایده‌های خود را به واقعیت تبدیل کنید.
+                    تکنولوژی‌ای که مرزهای ممکن را جابجا می‌کند.
+                </p>
+                
+                <!-- Interactive Element -->
+                <div class="hero-interactive">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="hero-input" 
+                            id="hero-input"
+                            placeholder="ایده خود را توصیف کنید..."
+                            autocomplete="off"
+                        >
+                        <button class="generate-button" id="generate-button">
+                            <span class="button-text">تولید کن</span>
+                            <div class="button-loader"></div>
                         </button>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="results-actions">
-                    <button class="btn-primary" id="play-again">Play Again</button>
-                    <button class="btn-secondary" id="change-age">Change Age Group</button>
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">پروژه‌های ما</h2>
+                    <p class="section-description">
+                        نگاهی به آخرین دستاوردهای ما در زمینه هوش مصنوعی
+                    </p>
+                </div>
+                
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="card-icon">
+                            <div class="icon-placeholder">🤖</div>
+                        </div>
+                        <h3 class="card-title">چت‌بات هوشمند</h3>
+                        <p class="card-description">
+                            سیستم مکالمه پیشرفته با قابلیت درک زبان طبیعی فارسی
+                        </p>
+                        <a href="#" class="card-link">بیشتر بدانید</a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="card-icon">
+                            <div class="icon-placeholder">🎨</div>
+                        </div>
+                        <h3 class="card-title">تولید تصویر</h3>
+                        <p class="card-description">
+                            ایجاد تصاویر منحصر به فرد با استفاده از هوش مصنوعی
+                        </p>
+                        <a href="#" class="card-link">بیشتر بدانید</a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="card-icon">
+                            <div class="icon-placeholder">📊</div>
+                        </div>
+                        <h3 class="card-title">تحلیل داده</h3>
+                        <p class="card-description">
+                            ابزارهای پیشرفته برای تحلیل و پردازش حجم بالای داده
+                        </p>
+                        <a href="#" class="card-link">بیشتر بدانید</a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="card-icon">
+                            <div class="icon-placeholder">🔮</div>
+                        </div>
+                        <h3 class="card-title">پیش‌بینی هوشمند</h3>
+                        <p class="card-description">
+                            سیستم‌های پیش‌بینی با دقت بالا برای کسب و کارها
+                        </p>
+                        <a href="#" class="card-link">بیشتر بدانید</a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="card-icon">
+                            <div class="icon-placeholder">🎵</div>
+                        </div>
+                        <h3 class="card-title">تولید صوت</h3>
+                        <p class="card-description">
+                            تبدیل متن به گفتار با کیفیت استودیویی
+                        </p>
+                        <a href="#" class="card-link">بیشتر بدانید</a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="card-icon">
+                            <div class="icon-placeholder">🧠</div>
+                        </div>
+                        <h3 class="card-title">یادگیری ماشین</h3>
+                        <p class="card-description">
+                            الگوریتم‌های پیشرفته برای حل مسائل پیچیده
+                        </p>
+                        <a href="#" class="card-link">بیشتر بدانید</a>
+                    </article>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Loading Screen -->
-        <div class="loading-overlay" id="loading">
-            <div class="loading-content">
-                <div class="loading-spinner"></div>
-                <p>Preparing your personalized game...</p>
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="section-title">درباره ما</h2>
+                        <p class="about-paragraph">
+                            ما تیمی از متخصصان هوش مصنوعی هستیم که با هدف ایجاد تحولی بنیادین در صنعت تکنولوژی تشکیل شده‌ایم. رسالت ما توسعه راه‌حل‌هایی است که نه تنها مسائل امروز را حل کند، بلکه آینده‌ای بهتر را نیز شکل دهد.
+                        </p>
+                        <p class="about-paragraph">
+                            با بهره‌گیری از جدیدترین دستاوردهای علمی و تکنولوژیک، محصولاتی ارائه می‌دهیم که مرزهای ممکن را جابجا می‌کند. هر پروژه برای ما فرصتی است تا نوآوری کنیم و ارزش آفرینی کنیم.
+                        </p>
+                        <p class="about-paragraph">
+                            تیم ما متشکل از مهندسان نرم‌افزار، متخصصان یادگیری ماشین، طراحان تجربه کاربری و محققان هوش مصنوعی است که همگی با انگیزه‌ای واحد در جهت خلق آینده‌ای هوشمندتر تلاش می‌کنند.
+                        </p>
+                    </div>
+                    <div class="about-visual">
+                        <div class="about-image-placeholder">
+                            <div class="placeholder-content">
+                                <div class="visual-element"></div>
+                                <div class="visual-element"></div>
+                                <div class="visual-element"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">خانه</a></li>
+                        <li><a href="#projects">پروژه‌ها</a></li>
+                        <li><a href="#about">درباره ما</a></li>
+                        <li><a href="#contact">تماس با ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📧</a>
+                        <a href="#" class="social-link">📱</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">💼</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h3>AI<span class="logo-accent">نو</span></h3>
+                        <p>آینده‌ای نو در هوش مصنوعی</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; ۲۰۲۵ تمام حقوق محفوظ است. ساخته شده با ❤️ توسط تیم AIنو</p>
             </div>
         </div>
+    </footer>
 
-        <!-- Particles Background -->
-        <div class="particles-container" id="particles"></div>
-    </div>
-
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>

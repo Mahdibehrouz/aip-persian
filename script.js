@@ -1,814 +1,425 @@
-// Game Configuration and State Management
-class GameManager {
-    constructor() {
-        this.currentAge = null;
-        this.currentGameType = null;
-        this.gameConfig = {};
-        this.gameState = {
-            score: 0,
-            level: 1,
-            startTime: null,
-            endTime: null,
-            matches: 0,
-            attempts: 0
-        };
-        this.init();
-    }
+// ========================================
+// Modern Persian AI Website - JavaScript
+// ========================================
 
-    init() {
-        this.createParticles();
-        this.setupEventListeners();
-        this.generateDiscountCode();
-    }
-
-    // Particle System for Background
-    createParticles() {
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 6 + 's';
-            particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            particlesContainer.appendChild(particle);
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ========================================
+    // DOM Elements
+    // ========================================
+    const header = document.getElementById('header');
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const heroInput = document.getElementById('hero-input');
+    const generateButton = document.getElementById('generate-button');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    // ========================================
+    // Sticky Header Behavior
+    // ========================================
+    function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
     }
-
-    // Event Listeners Setup
-    setupEventListeners() {
-        // Age group selection
-        document.querySelectorAll('.age-group-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const age = e.currentTarget.dataset.age;
-                this.selectAgeGroup(age);
-            });
-        });
-
-        // Navigation buttons
-        document.getElementById('exit-game').addEventListener('click', () => {
-            this.showScreen('age-selection');
-        });
-
-        document.getElementById('play-again').addEventListener('click', () => {
-            this.resetGame();
-            this.startGame();
-        });
-
-        document.getElementById('change-age').addEventListener('click', () => {
-            this.showScreen('age-selection');
-        });
-
-        document.getElementById('copy-code').addEventListener('click', () => {
-            this.copyDiscountCode();
-        });
-
-        // Game-specific event listeners will be added dynamically
+    
+    // Optimized scroll event with throttling
+    let ticking = false;
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(handleScroll);
+            ticking = true;
+        }
     }
-
-    // Age Group Selection and Game Configuration
-    selectAgeGroup(age) {
-        this.currentAge = age;
-        this.configureGameForAge(age);
-        this.showLoading();
+    
+    window.addEventListener('scroll', function() {
+        requestTick();
+        ticking = false;
+    });
+    
+    // ========================================
+    // Mobile Menu Toggle
+    // ========================================
+    function toggleMobileMenu() {
+        navMenu.classList.toggle('active');
         
-        setTimeout(() => {
-            this.hideLoading();
-            this.startGame();
-        }, 2000);
-    }
-
-    configureGameForAge(age) {
-        const configs = {
-            child: {
-                gameType: 'memory',
-                gridSize: 4, // 4x4 grid
-                cardTypes: ['🐶', '🐱', '🐰', '🐸', '🦋', '🌟', '🎈', '🍎'],
-                timeBonus: 10,
-                scoreMultiplier: 100,
-                instructions: 'Find matching pairs of animals and objects!'
-            },
-            teen: {
-                gameType: 'pattern',
-                sequenceLength: 4,
-                colors: ['#e53e3e', '#3182ce', '#38a169', '#d69e2e', '#805ad5'],
-                timeBonus: 15,
-                scoreMultiplier: 150,
-                instructions: 'Watch the pattern and repeat it correctly!'
-            },
-            adult: {
-                gameType: 'math',
-                difficulty: 'advanced',
-                operations: ['+', '-', '*', '/'],
-                maxNumber: 50,
-                timeBonus: 20,
-                scoreMultiplier: 200,
-                instructions: 'Solve math problems quickly and accurately!'
-            },
-            senior: {
-                gameType: 'word',
-                wordLength: 5,
-                displayTime: 4000,
-                categories: ['nature', 'family', 'hobbies'],
-                timeBonus: 25,
-                scoreMultiplier: 120,
-                instructions: 'Remember the words and type them back!'
+        // Animate hamburger menu
+        const bars = navToggle.querySelectorAll('.bar');
+        bars.forEach((bar, index) => {
+            if (navMenu.classList.contains('active')) {
+                // Transform to X
+                switch(index) {
+                    case 0:
+                        bar.style.transform = 'translateY(7px) rotate(45deg)';
+                        break;
+                    case 1:
+                        bar.style.opacity = '0';
+                        break;
+                    case 2:
+                        bar.style.transform = 'translateY(-7px) rotate(-45deg)';
+                        break;
+                }
+            } else {
+                // Transform back to hamburger
+                bar.style.transform = '';
+                bar.style.opacity = '';
             }
-        };
-
-        this.gameConfig = configs[age];
-        this.currentGameType = this.gameConfig.gameType;
-    }
-
-    // Screen Management
-    showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-        document.getElementById(screenId).classList.add('active');
-    }
-
-    showLoading() {
-        document.getElementById('loading').classList.add('active');
-    }
-
-    hideLoading() {
-        document.getElementById('loading').classList.remove('active');
-    }
-
-    // Game Management
-    startGame() {
-        this.resetGameState();
-        this.showScreen('game-screen');
-        this.setupGameUI();
-        this.startTimer();
-        
-        switch (this.currentGameType) {
-            case 'memory':
-                this.startMemoryGame();
-                break;
-            case 'pattern':
-                this.startPatternGame();
-                break;
-            case 'math':
-                this.startMathGame();
-                break;
-            case 'word':
-                this.startWordGame();
-                break;
-        }
-    }
-
-    resetGameState() {
-        this.gameState = {
-            score: 0,
-            level: 1,
-            startTime: Date.now(),
-            endTime: null,
-            matches: 0,
-            attempts: 0
-        };
-    }
-
-    resetGame() {
-        this.resetGameState();
-        this.hideAllGames();
-    }
-
-    setupGameUI() {
-        document.getElementById('game-title-header').textContent = this.getGameTitle();
-        document.getElementById('game-instructions').querySelector('p').textContent = this.gameConfig.instructions;
-        this.updateUI();
-    }
-
-    getGameTitle() {
-        const titles = {
-            memory: 'Memory Challenge',
-            pattern: 'Pattern Recognition',
-            math: 'Math Master',
-            word: 'Word Memory'
-        };
-        return titles[this.currentGameType];
-    }
-
-    hideAllGames() {
-        ['memory-game', 'pattern-game', 'math-game', 'word-game'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
-    }
-
-    updateUI() {
-        document.getElementById('score').textContent = this.gameState.score;
-        document.getElementById('level').textContent = this.gameState.level;
-    }
-
-    startTimer() {
-        this.timerInterval = setInterval(() => {
-            const elapsed = Date.now() - this.gameState.startTime;
-            const minutes = Math.floor(elapsed / 60000);
-            const seconds = Math.floor((elapsed % 60000) / 1000);
-            document.getElementById('timer').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }, 1000);
-    }
-
-    stopTimer() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-        }
-        this.gameState.endTime = Date.now();
-    }
-
-    // Memory Game Implementation
-    startMemoryGame() {
-        this.hideAllGames();
-        document.getElementById('memory-game').classList.remove('hidden');
-        this.createMemoryGrid();
-    }
-
-    createMemoryGrid() {
-        const grid = document.getElementById('game-grid');
-        grid.innerHTML = '';
-        
-        const { gridSize, cardTypes } = this.gameConfig;
-        const totalCards = gridSize * gridSize;
-        const pairsNeeded = totalCards / 2;
-        
-        // Create card pairs
-        const cards = [];
-        for (let i = 0; i < pairsNeeded; i++) {
-            const cardType = cardTypes[i % cardTypes.length];
-            cards.push(cardType, cardType);
-        }
-        
-        // Shuffle cards
-        this.shuffleArray(cards);
-        
-        // Set grid layout
-        grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-        
-        // Create card elements
-        cards.forEach((cardType, index) => {
-            const card = document.createElement('div');
-            card.className = 'memory-card';
-            card.dataset.type = cardType;
-            card.dataset.index = index;
-            card.addEventListener('click', (e) => this.handleMemoryCardClick(e));
-            grid.appendChild(card);
         });
         
-        this.memoryGame = {
-            flippedCards: [],
-            matchedPairs: 0,
-            totalPairs: pairsNeeded
-        };
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     }
-
-    handleMemoryCardClick(e) {
-        const card = e.currentTarget;
+    
+    if (navToggle) {
+        navToggle.addEventListener('click', toggleMobileMenu);
+    }
+    
+    // Close mobile menu when clicking on nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = navMenu.contains(event.target) || navToggle.contains(event.target);
         
-        if (card.classList.contains('flipped') || card.classList.contains('matched')) {
+        if (!isClickInsideNav && navMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    });
+    
+    // ========================================
+    // Generate Button Functionality
+    // ========================================
+    function simulateGeneration() {
+        const userInput = heroInput.value.trim();
+        
+        if (!userInput) {
+            // Shake animation for empty input
+            heroInput.style.animation = 'shake 0.5s ease-in-out';
+            heroInput.focus();
+            
+            setTimeout(() => {
+                heroInput.style.animation = '';
+            }, 500);
+            
             return;
         }
         
-        card.classList.add('flipped');
-        card.textContent = card.dataset.type;
-        this.memoryGame.flippedCards.push(card);
+        // Add loading state
+        generateButton.classList.add('loading');
+        generateButton.disabled = true;
         
-        if (this.memoryGame.flippedCards.length === 2) {
-            this.gameState.attempts++;
-            setTimeout(() => this.checkMemoryMatch(), 800);
-        }
-    }
-
-    checkMemoryMatch() {
-        const [card1, card2] = this.memoryGame.flippedCards;
-        
-        if (card1.dataset.type === card2.dataset.type) {
-            // Match found
-            card1.classList.add('matched');
-            card2.classList.add('matched');
-            this.memoryGame.matchedPairs++;
-            this.gameState.matches++;
-            this.gameState.score += this.gameConfig.scoreMultiplier;
-            this.updateUI();
-            
-            if (this.memoryGame.matchedPairs === this.memoryGame.totalPairs) {
-                this.completeLevel();
-            }
-        } else {
-            // No match
-            card1.classList.remove('flipped');
-            card2.classList.remove('flipped');
-            card1.textContent = '';
-            card2.textContent = '';
-        }
-        
-        this.memoryGame.flippedCards = [];
-    }
-
-    // Pattern Game Implementation
-    startPatternGame() {
-        this.hideAllGames();
-        document.getElementById('pattern-game').classList.remove('hidden');
-        this.createPatternGame();
-    }
-
-    createPatternGame() {
-        this.patternGame = {
-            sequence: [],
-            playerSequence: [],
-            currentStep: 0,
-            isPlaying: false,
-            level: 1
-        };
-        
-        this.createPatternButtons();
-        this.generateNewPattern();
-    }
-
-    createPatternButtons() {
-        const inputContainer = document.getElementById('pattern-input');
-        inputContainer.innerHTML = '';
-        
-        this.gameConfig.colors.forEach((color, index) => {
-            const button = document.createElement('button');
-            button.className = 'pattern-button';
-            button.style.backgroundColor = color;
-            button.dataset.color = color;
-            button.dataset.index = index;
-            button.addEventListener('click', (e) => this.handlePatternButtonClick(e));
-            inputContainer.appendChild(button);
-        });
-        
-        const submitBtn = document.getElementById('pattern-submit');
-        submitBtn.addEventListener('click', () => this.submitPattern());
-    }
-
-    generateNewPattern() {
-        const length = this.gameConfig.sequenceLength + this.gameState.level - 1;
-        this.patternGame.sequence = [];
-        
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * this.gameConfig.colors.length);
-            this.patternGame.sequence.push(randomIndex);
-        }
-        
-        this.showPattern();
-    }
-
-    showPattern() {
-        const displayContainer = document.getElementById('pattern-display');
-        displayContainer.innerHTML = '';
-        this.patternGame.isPlaying = true;
-        
-        this.patternGame.sequence.forEach((colorIndex, step) => {
-            setTimeout(() => {
-                const button = document.createElement('div');
-                button.className = 'pattern-button active';
-                button.style.backgroundColor = this.gameConfig.colors[colorIndex];
-                displayContainer.appendChild(button);
-                
-                if (step === this.patternGame.sequence.length - 1) {
-                    setTimeout(() => {
-                        displayContainer.innerHTML = '<p>Now repeat the pattern!</p>';
-                        this.patternGame.isPlaying = false;
-                        this.patternGame.playerSequence = [];
-                    }, 1000);
-                }
-            }, step * 600);
-        });
-    }
-
-    handlePatternButtonClick(e) {
-        if (this.patternGame.isPlaying) return;
-        
-        const button = e.currentTarget;
-        const colorIndex = parseInt(button.dataset.index);
-        
-        button.classList.add('active');
-        setTimeout(() => button.classList.remove('active'), 200);
-        
-        this.patternGame.playerSequence.push(colorIndex);
-    }
-
-    submitPattern() {
-        if (this.patternGame.isPlaying) return;
-        
-        const correct = this.arraysEqual(this.patternGame.sequence, this.patternGame.playerSequence);
-        
-        if (correct) {
-            this.gameState.score += this.gameConfig.scoreMultiplier;
-            this.updateUI();
-            this.completeLevel();
-        } else {
-            this.gameState.attempts++;
-            this.showPatternFeedback(false);
-            setTimeout(() => this.generateNewPattern(), 2000);
-        }
-    }
-
-    showPatternFeedback(correct) {
-        const displayContainer = document.getElementById('pattern-display');
-        displayContainer.innerHTML = `<p style="color: ${correct ? '#48bb78' : '#f56565'}; font-size: 1.5rem;">
-            ${correct ? 'Correct!' : 'Try again!'}
-        </p>`;
-    }
-
-    // Math Game Implementation
-    startMathGame() {
-        this.hideAllGames();
-        document.getElementById('math-game').classList.remove('hidden');
-        this.createMathQuestion();
-    }
-
-    createMathQuestion() {
-        const { operations, maxNumber } = this.gameConfig;
-        const operation = operations[Math.floor(Math.random() * operations.length)];
-        
-        let num1, num2, answer, question;
-        
-        switch (operation) {
-            case '+':
-                num1 = Math.floor(Math.random() * maxNumber);
-                num2 = Math.floor(Math.random() * maxNumber);
-                answer = num1 + num2;
-                question = `${num1} + ${num2}`;
-                break;
-            case '-':
-                num1 = Math.floor(Math.random() * maxNumber) + maxNumber/2;
-                num2 = Math.floor(Math.random() * (num1/2));
-                answer = num1 - num2;
-                question = `${num1} - ${num2}`;
-                break;
-            case '*':
-                num1 = Math.floor(Math.random() * 12) + 1;
-                num2 = Math.floor(Math.random() * 12) + 1;
-                answer = num1 * num2;
-                question = `${num1} × ${num2}`;
-                break;
-            case '/':
-                num2 = Math.floor(Math.random() * 10) + 1;
-                answer = Math.floor(Math.random() * 20) + 1;
-                num1 = num2 * answer;
-                question = `${num1} ÷ ${num2}`;
-                break;
-        }
-        
-        document.getElementById('math-question').textContent = `${question} = ?`;
-        
-        // Generate options
-        const options = [answer];
-        while (options.length < 4) {
-            const wrongAnswer = answer + Math.floor(Math.random() * 20) - 10;
-            if (wrongAnswer !== answer && wrongAnswer > 0 && !options.includes(wrongAnswer)) {
-                options.push(wrongAnswer);
-            }
-        }
-        
-        this.shuffleArray(options);
-        this.createMathOptions(options, answer);
-        
-        this.mathGame = { correctAnswer: answer };
-    }
-
-    createMathOptions(options, correctAnswer) {
-        const container = document.getElementById('math-options');
-        container.innerHTML = '';
-        
-        options.forEach(option => {
-            const button = document.createElement('button');
-            button.className = 'math-option';
-            button.textContent = option;
-            button.addEventListener('click', (e) => this.handleMathAnswer(e, option, correctAnswer));
-            container.appendChild(button);
-        });
-    }
-
-    handleMathAnswer(e, selectedAnswer, correctAnswer) {
-        const button = e.currentTarget;
-        this.gameState.attempts++;
-        
-        if (selectedAnswer === correctAnswer) {
-            button.classList.add('correct');
-            this.gameState.score += this.gameConfig.scoreMultiplier;
-            this.gameState.matches++;
-            this.updateUI();
-            
-            setTimeout(() => {
-                if (this.gameState.matches >= 10) {
-                    this.completeLevel();
-                } else {
-                    this.createMathQuestion();
-                }
-            }, 1500);
-        } else {
-            button.classList.add('incorrect');
-            document.querySelectorAll('.math-option').forEach(btn => {
-                if (parseInt(btn.textContent) === correctAnswer) {
-                    btn.classList.add('correct');
-                }
-                btn.style.pointerEvents = 'none';
-            });
-            
-            setTimeout(() => this.createMathQuestion(), 2000);
-        }
-    }
-
-    // Word Game Implementation
-    startWordGame() {
-        this.hideAllGames();
-        document.getElementById('word-game').classList.remove('hidden');
-        this.createWordChallenge();
-    }
-
-    createWordChallenge() {
-        const words = this.getWordsForCategory();
-        const randomWord = words[Math.floor(Math.random() * words.length)];
-        
-        this.wordGame = {
-            currentWord: randomWord,
-            wordsCompleted: 0
-        };
-        
-        this.displayWord(randomWord);
-        this.setupWordInput();
-    }
-
-    getWordsForCategory() {
-        const wordLists = {
-            nature: ['FOREST', 'OCEAN', 'MOUNTAIN', 'FLOWER', 'SUNSET', 'RAINBOW', 'RIVER', 'GARDEN'],
-            family: ['MOTHER', 'FATHER', 'SISTER', 'BROTHER', 'FAMILY', 'CHILDREN', 'PARENTS', 'HOME'],
-            hobbies: ['READING', 'COOKING', 'MUSIC', 'PAINTING', 'TRAVEL', 'SPORTS', 'GAMES', 'DANCE']
-        };
-        
-        const category = this.gameConfig.categories[Math.floor(Math.random() * this.gameConfig.categories.length)];
-        return wordLists[category];
-    }
-
-    displayWord(word) {
-        const display = document.getElementById('word-display');
-        display.textContent = word;
-        
+        // Simulate API call with timeout
         setTimeout(() => {
-            display.textContent = 'Type the word you saw...';
-        }, this.gameConfig.displayTime);
+            // Remove loading state and add success state
+            generateButton.classList.remove('loading');
+            generateButton.classList.add('success');
+            
+            // Show success message
+            showNotification('ایده شما با موفقیت پردازش شد! 🎉', 'success');
+            
+            // Reset button after animation
+            setTimeout(() => {
+                generateButton.classList.remove('success');
+                generateButton.disabled = false;
+                heroInput.value = '';
+            }, 2000);
+            
+        }, 2000);
     }
-
-    setupWordInput() {
-        const input = document.getElementById('word-input');
-        const submitBtn = document.getElementById('word-submit');
-        
-        input.value = '';
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.submitWord();
+    
+    if (generateButton) {
+        generateButton.addEventListener('click', simulateGeneration);
+    }
+    
+    // Handle Enter key in input field
+    if (heroInput) {
+        heroInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                simulateGeneration();
             }
         });
         
-        submitBtn.addEventListener('click', () => this.submitWord());
+        // Add focus/blur effects
+        heroInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        heroInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = '';
+        });
     }
-
-    submitWord() {
-        const input = document.getElementById('word-input');
-        const userWord = input.value.toUpperCase().trim();
+    
+    // ========================================
+    // Notification System
+    // ========================================
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
         
-        this.gameState.attempts++;
+        // Style the notification
+        Object.assign(notification.style, {
+            position: 'fixed',
+            top: '100px',
+            right: '20px',
+            padding: '1rem 1.5rem',
+            borderRadius: '0.5rem',
+            color: 'white',
+            fontFamily: 'Vazirmatn, sans-serif',
+            fontSize: '0.9rem',
+            fontWeight: '500',
+            zIndex: '9999',
+            transform: 'translateX(100%)',
+            transition: 'transform 0.3s ease, opacity 0.3s ease',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)',
+            direction: 'rtl'
+        });
         
-        if (userWord === this.wordGame.currentWord) {
-            this.gameState.score += this.gameConfig.scoreMultiplier;
-            this.gameState.matches++;
-            this.wordGame.wordsCompleted++;
-            this.updateUI();
-            
-            if (this.wordGame.wordsCompleted >= 8) {
-                this.completeLevel();
-            } else {
-                this.showWordFeedback(true);
-                setTimeout(() => this.createWordChallenge(), 2000);
-            }
-        } else {
-            this.showWordFeedback(false);
-            setTimeout(() => this.createWordChallenge(), 2000);
+        // Set background color based on type
+        switch(type) {
+            case 'success':
+                notification.style.background = 'linear-gradient(135deg, #06d6a0, #059669)';
+                break;
+            case 'error':
+                notification.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                break;
+            default:
+                notification.style.background = 'linear-gradient(135deg, #6366f1, #4f46e5)';
         }
-    }
-
-    showWordFeedback(correct) {
-        const display = document.getElementById('word-display');
-        display.innerHTML = `<p style="color: ${correct ? '#48bb78' : '#f56565'}; font-size: 2rem;">
-            ${correct ? 'Correct!' : `The word was: ${this.wordGame.currentWord}`}
-        </p>`;
-    }
-
-    // Level Management
-    completeLevel() {
-        this.gameState.level++;
-        this.gameState.score += this.gameConfig.timeBonus * this.gameState.level;
         
-        if (this.gameState.level <= 3) {
-            this.updateUI();
-            this.showLevelComplete();
-            setTimeout(() => {
-                this.adjustDifficultyForNextLevel();
-                this.startNextLevel();
-            }, 3000);
-        } else {
-            this.endGame();
-        }
-    }
-
-    showLevelComplete() {
-        const gameArea = document.querySelector('.game-area');
-        const levelMessage = document.createElement('div');
-        levelMessage.className = 'level-complete-message';
-        levelMessage.innerHTML = `
-            <div style="text-align: center; padding: 40px; background: rgba(72, 187, 120, 0.1); border-radius: 16px; margin: 20px;">
-                <h3 style="color: #48bb78; font-size: 2rem; margin-bottom: 10px;">Level ${this.gameState.level - 1} Complete!</h3>
-                <p style="font-size: 1.2rem; color: #2d3748;">Preparing next challenge...</p>
-            </div>
-        `;
+        // Add to DOM
+        document.body.appendChild(notification);
         
-        gameArea.appendChild(levelMessage);
-        
+        // Animate in
         setTimeout(() => {
-            if (levelMessage.parentNode) {
-                levelMessage.parentNode.removeChild(levelMessage);
-            }
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
         }, 3000);
     }
-
-    adjustDifficultyForNextLevel() {
-        switch (this.currentGameType) {
-            case 'memory':
-                // Increase grid size slightly
-                if (this.gameConfig.gridSize < 6) {
-                    this.gameConfig.gridSize += 2;
-                }
-                break;
-            case 'pattern':
-                // Increase sequence length
-                this.gameConfig.sequenceLength++;
-                break;
-            case 'math':
-                // Increase max number
-                this.gameConfig.maxNumber += 20;
-                break;
-            case 'word':
-                // Decrease display time
-                if (this.gameConfig.displayTime > 2000) {
-                    this.gameConfig.displayTime -= 500;
-                }
-                break;
-        }
-    }
-
-    startNextLevel() {
-        switch (this.currentGameType) {
-            case 'memory':
-                this.startMemoryGame();
-                break;
-            case 'pattern':
-                this.generateNewPattern();
-                break;
-            case 'math':
-                this.createMathQuestion();
-                break;
-            case 'word':
-                this.createWordChallenge();
-                break;
-        }
-    }
-
-    // Game Completion
-    endGame() {
-        this.stopTimer();
-        this.showResults();
-    }
-
-    showResults() {
-        this.showScreen('results-screen');
+    
+    // ========================================
+    // Smooth Scrolling for Navigation Links
+    // ========================================
+    function smoothScrollTo(targetId) {
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) return;
         
-        const timeTaken = this.gameState.endTime - this.gameState.startTime;
-        const minutes = Math.floor(timeTaken / 60000);
-        const seconds = Math.floor((timeTaken % 60000) / 1000);
+        const headerHeight = header.offsetHeight;
+        const targetPosition = targetElement.offsetTop - headerHeight;
         
-        document.getElementById('final-score').textContent = this.gameState.score;
-        document.getElementById('final-time').textContent = 
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        document.getElementById('final-level').textContent = this.gameState.level - 1;
-        
-        // Customize message based on performance
-        const accuracy = this.gameState.matches / Math.max(this.gameState.attempts, 1);
-        let message = "Well done!";
-        
-        if (accuracy > 0.8) {
-            message = "Outstanding performance!";
-        } else if (accuracy > 0.6) {
-            message = "Great job!";
-        } else if (accuracy > 0.4) {
-            message = "Good effort!";
-        }
-        
-        document.getElementById('results-message').textContent = message;
-    }
-
-    // Discount Code Management
-    generateDiscountCode() {
-        const codes = ['GAME10OFF', 'PLAY10', 'MIND10', 'CHALLENGE10', 'BRAIN10'];
-        this.discountCode = codes[Math.floor(Math.random() * codes.length)];
-        document.getElementById('discount-code').textContent = this.discountCode;
-    }
-
-    copyDiscountCode() {
-        navigator.clipboard.writeText(this.discountCode).then(() => {
-            const button = document.getElementById('copy-code');
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            button.style.background = 'rgba(72, 187, 120, 0.3)';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = 'rgba(255, 255, 255, 0.2)';
-            }, 2000);
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
         });
     }
-
-    // Utility Methods
-    shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
+    
+    // Add smooth scrolling to navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            const href = this.getAttribute('href');
+            
+            if (href.startsWith('#')) {
+                event.preventDefault();
+                const targetId = href.substring(1);
+                smoothScrollTo(targetId);
+            }
+        });
+    });
+    
+    // ========================================
+    // Intersection Observer for Animations
+    // ========================================
+    function createObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements that should animate on scroll
+        const animateElements = document.querySelectorAll('.project-card, .about-content, .section-header');
+        
+        animateElements.forEach(element => {
+            // Set initial state
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            
+            observer.observe(element);
+        });
     }
-
-    arraysEqual(arr1, arr2) {
-        return arr1.length === arr2.length && arr1.every((val, i) => val === arr2[i]);
-    }
-}
-
-// Initialize the game when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    window.gameManager = new GameManager();
-});
-
-// Add some additional visual effects
-document.addEventListener('DOMContentLoaded', () => {
-    // Add hover effects to cards
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.classList.contains('age-group-card')) {
-            e.target.style.transform = 'translateY(-10px) scale(1.02)';
+    
+    // Initialize observer when DOM is ready
+    createObserver();
+    
+    // ========================================
+    // Keyboard Navigation Support
+    // ========================================
+    document.addEventListener('keydown', function(event) {
+        // ESC key closes mobile menu
+        if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+            toggleMobileMenu();
         }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.classList.contains('age-group-card')) {
-            e.target.style.transform = 'translateY(0) scale(1)';
-        }
-    });
-
-    // Add ripple effect to buttons
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-primary') || e.target.classList.contains('btn-secondary')) {
-            const ripple = document.createElement('span');
-            const rect = e.target.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.cssText = `
-                position: absolute;
-                width: ${size}px;
-                height: ${size}px;
-                left: ${x}px;
-                top: ${y}px;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 50%;
-                transform: scale(0);
-                animation: ripple 0.6s ease-out;
-                pointer-events: none;
-            `;
-            
-            e.target.style.position = 'relative';
-            e.target.style.overflow = 'hidden';
-            e.target.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        }
-    });
-
-    // Add ripple animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes ripple {
-            to {
-                transform: scale(2);
-                opacity: 0;
+        
+        // Ctrl/Cmd + K opens search (focus on hero input)
+        if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+            event.preventDefault();
+            if (heroInput) {
+                heroInput.focus();
+                heroInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
-    `;
-    document.head.appendChild(style);
+    });
+    
+    // ========================================
+    // Theme System (Optional Enhancement)
+    // ========================================
+    function initializeTheme() {
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+    
+    // Initialize theme
+    initializeTheme();
+    
+    // ========================================
+    // Performance Optimizations
+    // ========================================
+    
+    // Preload critical images
+    function preloadImages() {
+        const imageUrls = [
+            // Add any critical image URLs here
+        ];
+        
+        imageUrls.forEach(url => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = url;
+            document.head.appendChild(link);
+        });
+    }
+    
+    // Lazy load non-critical elements
+    function initializeLazyLoading() {
+        const lazyElements = document.querySelectorAll('[data-lazy]');
+        
+        if ('IntersectionObserver' in window) {
+            const lazyObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const src = element.getAttribute('data-lazy');
+                        
+                        if (src) {
+                            element.src = src;
+                            element.removeAttribute('data-lazy');
+                        }
+                        
+                        lazyObserver.unobserve(element);
+                    }
+                });
+            });
+            
+            lazyElements.forEach(element => {
+                lazyObserver.observe(element);
+            });
+        }
+    }
+    
+    // Initialize performance optimizations
+    preloadImages();
+    initializeLazyLoading();
+    
+    // ========================================
+    // Error Handling
+    // ========================================
+    window.addEventListener('error', function(event) {
+        console.error('JavaScript Error:', event.error);
+        
+        // Show user-friendly error message in Persian
+        showNotification('خطایی رخ داده است. لطفاً صفحه را نوسازی کنید.', 'error');
+    });
+    
+    // ========================================
+    // Console Welcome Message
+    // ========================================
+    console.log(`
+    🚀 وب‌سایت هوش مصنوعی پیشرفته
+    
+    ✨ ویژگی‌ها:
+    • طراحی کاملاً RTL و فارسی
+    • تم تیره مدرن
+    • انیمیشن‌های نرم و زیبا
+    • کاملاً ریسپانسیو
+    • بهینه‌سازی شده برای عملکرد
+    
+    📱 کلیدهای میانبر:
+    • ESC: بستن منوی موبایل
+    • Ctrl/Cmd + K: فوکوس روی فیلد جستجو
+    
+    Made with ❤️ using Vanilla JavaScript
+    `);
+    
 });
+
+// ========================================
+// Additional CSS Animations (Dynamic)
+// ========================================
+
+// Add shake animation to CSS dynamically
+const shakeKeyframes = `
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+`;
+
+// Create and append style element
+const styleElement = document.createElement('style');
+styleElement.textContent = shakeKeyframes;
+document.head.appendChild(styleElement);
+
+// ========================================
+// PWA Support (Future Enhancement)
+// ========================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        // Service worker registration would go here
+        // This is commented out as we haven't created a service worker file
+        // navigator.serviceWorker.register('/sw.js');
+    });
+}
