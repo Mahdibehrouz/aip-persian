@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const productName = productCard.querySelector('h3').textContent;
             const productPrice = productCard.querySelector('.current-price').textContent;
             const productImage = productCard.querySelector('img').src;
-            const productId = `product_${index + 1}`;
+            const productId = 'product_' + (index + 1);
             
             addToCart(productId, productName, productPrice, productImage);
             
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productName = productCard.querySelector('h3').textContent;
                 const productPrice = productCard.querySelector('.current-price').textContent;
                 const productImage = productCard.querySelector('img').src;
-                const productId = `product_${index + 1}`;
+                const productId = 'product_' + (index + 1);
                 
                 toggleWishlist(productId, productName, productPrice, productImage);
                 
@@ -201,8 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (searchTerm) {
                 // In a real application, this would redirect to search results
-                showNotification(`جستجو برای: ${searchTerm}`, 'info');
-                // window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+                showNotification('جستجو برای: ' + searchTerm, 'info');
+                // window.location.href = 'search.html?q=' + encodeURIComponent(searchTerm);
             }
         });
     }
@@ -264,9 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     // Notification System
     // ========================================
-    function showNotification(message, type = 'info') {
+    function showNotification(message, type) {
+        type = type || 'info';
         const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
+        notification.className = 'notification notification-' + type;
         notification.textContent = message;
         
         Object.assign(notification.style, {
