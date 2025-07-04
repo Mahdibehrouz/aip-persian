@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سبد خرید - آلوتار</title>
+    <meta name="description" content="سبد خرید شما در فروشگاه آنلاین آلوتار">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</span>
+                        <span><i class="fas fa-envelope"></i> info@aloatar.com</span>
+                    </div>
+                    <div class="header-links">
+                        <a href="#" class="language-toggle">EN</a>
+                        <a href="login.html">ورود</a>
+                        <a href="register.html">ثبت نام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <div class="header-main-content">
+                    <div class="logo">
+                        <h1><a href="index.html" style="text-decoration: none; color: inherit;">آلوتار</a></h1>
+                        <p>طبیعت خالص</p>
+                    </div>
+                    
+                    <div class="search-container">
+                        <form class="search-form">
+                            <input type="text" placeholder="جستجو در محصولات..." class="search-input">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <a href="wishlist.html" class="header-action">
+                            <i class="fas fa-heart"></i>
+                            <span class="badge">۳</span>
+                        </a>
+                        <a href="cart.html" class="header-action cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge">۵</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">صفحه اصلی</a></li>
+                    <li class="dropdown">
+                        <a href="products.html">محصولات <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="category-herbs.html">گیاهان دارویی</a></li>
+                            <li><a href="category-oils.html">روغن‌های طبیعی</a></li>
+                            <li><a href="category-skincare.html">مراقبت از پوست</a></li>
+                            <li><a href="category-supplements.html">مکمل‌های غذایی</a></li>
+                            <li><a href="category-tea.html">چای‌های گیاهی</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">درباره ما</a></li>
+                    <li><a href="blog.html">وبلاگ</a></li>
+                    <li><a href="contact.html">تماس با ما</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main style="margin-top: 2rem; margin-bottom: 3rem;">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" style="margin-bottom: 2rem;">
+                <a href="index.html" style="color: var(--primary-green); text-decoration: none;">صفحه اصلی</a>
+                <span style="margin: 0 0.5rem; color: var(--dark-gray);">/</span>
+                <span style="color: var(--dark-gray);">سبد خرید</span>
+            </nav>
+
+            <!-- Page Title -->
+            <h1 class="section-title">سبد خرید شما</h1>
+
+            <!-- Cart Content -->
+            <div id="cart-content">
+                <!-- Cart will be populated by JavaScript -->
+            </div>
+
+            <!-- Empty Cart Message -->
+            <div id="empty-cart" style="display: none; text-align: center; padding: 3rem; background: var(--pale-green); border-radius: var(--radius-lg); margin: 2rem 0;">
+                <i class="fas fa-shopping-cart" style="font-size: 4rem; color: var(--primary-green); margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--primary-green); margin-bottom: 1rem;">سبد خرید شما خالی است</h3>
+                <p style="color: var(--dark-gray); margin-bottom: 2rem;">برای شروع خرید، محصولات مورد نظر خود را انتخاب کنید</p>
+                <a href="index.html" class="btn btn-primary">مشاهده محصولات</a>
+            </div>
+
+            <!-- Cart Summary -->
+            <div id="cart-summary" style="display: none; background: var(--off-white); border-radius: var(--radius-lg); padding: 2rem; margin-top: 2rem;">
+                <h3 style="color: var(--primary-green); margin-bottom: 1.5rem;">خلاصه سفارش</h3>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <span>جمع محصولات:</span>
+                    <span id="subtotal">۰ تومان</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <span>هزینه ارسال:</span>
+                    <span id="shipping">۳۰,۰۰۰ تومان</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--primary-green);">
+                    <span>تخفیف:</span>
+                    <span id="discount">-۵۰,۰۰۰ تومان</span>
+                </div>
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--medium-gray);">
+                <div style="display: flex; justify-content: space-between; font-size: var(--font-size-xl); font-weight: 700; color: var(--primary-green);">
+                    <span>مجموع:</span>
+                    <span id="total">۰ تومان</span>
+                </div>
+                <a href="payment.html" class="btn btn-primary" style="width: 100%; margin-top: 2rem;">ادامه خرید</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>آلوتار</h3>
+                        <p>آلوتار بزرگترین فروشگاه آنلاین محصولات ارگانیک و طبیعی در ایران است. ما متعهد به ارائه بهترین محصولات طبیعی با بالاترین کیفیت هستیم.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-telegram"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>دسته‌بندی‌ها</h4>
+                        <ul>
+                            <li><a href="category-herbs.html">گیاهان دارویی</a></li>
+                            <li><a href="category-oils.html">روغن‌های طبیعی</a></li>
+                            <li><a href="category-skincare.html">مراقبت از پوست</a></li>
+                            <li><a href="category-supplements.html">مکمل‌های غذایی</a></li>
+                            <li><a href="category-tea.html">چای‌های گیاهی</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>خدمات مشتریان</h4>
+                        <ul>
+                            <li><a href="about.html">درباره ما</a></li>
+                            <li><a href="contact.html">تماس با ما</a></li>
+                            <li><a href="faq.html">سوالات متداول</a></li>
+                            <li><a href="shipping.html">شیوه ارسال</a></li>
+                            <li><a href="returns.html">مرجوعی کالا</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>اطلاعات تماس</h4>
+                        <div class="contact-info">
+                            <p><i class="fas fa-map-marker-alt"></i> تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+                            <p><i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                            <p><i class="fas fa-envelope"></i> info@aloatar.com</p>
+                            <p><i class="fas fa-clock"></i> شنبه تا پنج‌شنبه: ۹ تا ۱۸</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; ۱۴۰۳ آلوتار. تمام حقوق محفوظ است.</p>
+                    <div class="payment-methods">
+                        <img src="images/payment1.png" alt="پرداخت آنلاین">
+                        <img src="images/payment2.png" alt="پرداخت آنلاین">
+                        <img src="images/payment3.png" alt="پرداخت آنلاین">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = JSON.parse(localStorage.getItem('aloatar_cart')) || [];
+            const cartContent = document.getElementById('cart-content');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartSummary = document.getElementById('cart-summary');
+
+            function renderCart() {
+                if (cart.length === 0) {
+                    emptyCart.style.display = 'block';
+                    cartSummary.style.display = 'none';
+                    cartContent.innerHTML = '';
+                    return;
+                }
+
+                emptyCart.style.display = 'none';
+                cartSummary.style.display = 'block';
+
+                let cartHTML = '<div style="background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);">';
+                
+                cart.forEach((item, index) => {
+                    cartHTML += `
+                        <div class="cart-item" style="display: flex; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--light-gray);">
+                            <img src="${item.image || 'images/default-product.jpg'}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-md); margin-left: 1rem;">
+                            <div style="flex: 1;">
+                                <h4 style="color: var(--primary-green); margin-bottom: 0.5rem;">${item.name}</h4>
+                                <p style="color: var(--primary-green); font-weight: 600; font-size: var(--font-size-lg);">${item.price}</p>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <button onclick="updateQuantity('${item.id}', -1)" class="btn-icon" style="width: 30px; height: 30px; font-size: 0.8rem;">-</button>
+                                    <span style="padding: 0.5rem; min-width: 40px; text-align: center; border: 1px solid var(--medium-gray); border-radius: var(--radius-sm);">${item.quantity}</span>
+                                    <button onclick="updateQuantity('${item.id}', 1)" class="btn-icon" style="width: 30px; height: 30px; font-size: 0.8rem;">+</button>
+                                </div>
+                                <button onclick="removeFromCart('${item.id}')" class="btn-icon" style="background: var(--light-red); color: var(--primary-red);">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                cartHTML += '</div>';
+                cartContent.innerHTML = cartHTML;
+
+                updateSummary();
+            }
+
+            function updateSummary() {
+                const subtotal = cart.reduce((total, item) => {
+                    const price = parseInt(item.price.replace(/[^\d]/g, ''));
+                    return total + (price * item.quantity);
+                }, 0);
+
+                const shipping = subtotal > 500000 ? 0 : 30000;
+                const discount = subtotal > 1000000 ? 50000 : 0;
+                const total = subtotal + shipping - discount;
+
+                document.getElementById('subtotal').textContent = subtotal.toLocaleString('fa-IR') + ' تومان';
+                document.getElementById('shipping').textContent = shipping === 0 ? 'رایگان' : shipping.toLocaleString('fa-IR') + ' تومان';
+                document.getElementById('discount').textContent = discount > 0 ? '-' + discount.toLocaleString('fa-IR') + ' تومان' : '۰ تومان';
+                document.getElementById('total').textContent = total.toLocaleString('fa-IR') + ' تومان';
+            }
+
+            window.updateQuantity = function(productId, change) {
+                const item = cart.find(item => item.id === productId);
+                if (item) {
+                    item.quantity += change;
+                    if (item.quantity <= 0) {
+                        const index = cart.findIndex(item => item.id === productId);
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem('aloatar_cart', JSON.stringify(cart));
+                    renderCart();
+                    updateCartBadge();
+                }
+            };
+
+            window.removeFromCart = function(productId) {
+                const index = cart.findIndex(item => item.id === productId);
+                if (index > -1) {
+                    cart.splice(index, 1);
+                    localStorage.setItem('aloatar_cart', JSON.stringify(cart));
+                    renderCart();
+                    updateCartBadge();
+                }
+            };
+
+            function updateCartBadge() {
+                const cartBadge = document.querySelector('.cart-btn .badge');
+                if (cartBadge) {
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartBadge.textContent = totalItems || '۰';
+                }
+            }
+
+            renderCart();
+            updateCartBadge();
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

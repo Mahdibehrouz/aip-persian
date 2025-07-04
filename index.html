@@ -3,248 +3,422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هوش مصنوعی پیشرفته - آینده‌ای نو در دستان شما</title>
-    <meta name="description" content="پلتفرم پیشرفته هوش مصنوعی برای ایجاد راه‌حل‌های نوآورانه">
-    
-    <!-- Google Fonts - Vazirmatn -->
+    <title>آلوتار - فروشگاه محصولات ارگانیک و طبیعی</title>
+    <meta name="description" content="فروشگاه آنلاین آلوتار - محصولات ارگانیک، طبیعی و گیاهان دارویی با کیفیت بالا">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
-    <header class="header" id="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <!-- Logo -->
-                <div class="nav-logo">
-                    <h2>AI<span class="logo-accent">نو</span></h2>
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</span>
+                        <span><i class="fas fa-envelope"></i> info@aloatar.com</span>
+                    </div>
+                    <div class="header-links">
+                        <a href="#" class="language-toggle">EN</a>
+                        <a href="login.html">ورود</a>
+                        <a href="register.html">ثبت نام</a>
+                    </div>
                 </div>
-                
-                <!-- Navigation Links -->
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link">خانه</a>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <div class="header-main-content">
+                    <div class="logo">
+                        <h1>آلوتار</h1>
+                        <p>طبیعت خالص</p>
+                    </div>
+                    
+                    <div class="search-container">
+                        <form class="search-form">
+                            <input type="text" placeholder="جستجو در محصولات..." class="search-input">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <a href="wishlist.html" class="header-action">
+                            <i class="fas fa-heart"></i>
+                            <span class="badge">۳</span>
+                        </a>
+                        <a href="cart.html" class="header-action cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge">۵</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">صفحه اصلی</a></li>
+                    <li class="dropdown">
+                        <a href="products.html">محصولات <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="category-herbs.html">گیاهان دارویی</a></li>
+                            <li><a href="category-oils.html">روغن‌های طبیعی</a></li>
+                            <li><a href="category-skincare.html">مراقبت از پوست</a></li>
+                            <li><a href="category-supplements.html">مکمل‌های غذایی</a></li>
+                            <li><a href="category-tea.html">چای‌های گیاهی</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#projects" class="nav-link">پروژه‌ها</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link">تماس</a>
-                    </li>
+                    <li><a href="about.html">درباره ما</a></li>
+                    <li><a href="blog.html">وبلاگ</a></li>
+                    <li><a href="contact.html">تماس با ما</a></li>
                 </ul>
-                
-                <!-- CTA Button -->
-                <div class="nav-cta">
-                    <button class="cta-button">شروع کنید</button>
-                </div>
-                
-                <!-- Mobile Menu Toggle -->
-                <div class="nav-toggle" id="nav-toggle">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-background">
-                <div class="particle" style="--delay: 0s;"></div>
-                <div class="particle" style="--delay: 2s;"></div>
-                <div class="particle" style="--delay: 4s;"></div>
-                <div class="particle" style="--delay: 6s;"></div>
-                <div class="particle" style="--delay: 8s;"></div>
+        <!-- Hero Slider -->
+        <section class="hero-slider">
+            <div class="slider-container">
+                <div class="slide active" style="background-image: url('images/slide1.jpg')">
+                    <div class="slide-content">
+                        <h2>طبیعت خالص برای زندگی سالم</h2>
+                        <p>بهترین محصولات ارگانیک و طبیعی را از آلوتار تهیه کنید</p>
+                        <a href="products.html" class="btn btn-primary">مشاهده محصولات</a>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('images/slide2.jpg')">
+                    <div class="slide-content">
+                        <h2>گیاهان دارویی اصیل</h2>
+                        <p>مجموعه کاملی از گیاهان دارویی با کیفیت و اصالت تضمین شده</p>
+                        <a href="category-herbs.html" class="btn btn-primary">گیاهان دارویی</a>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('images/slide3.jpg')">
+                    <div class="slide-content">
+                        <h2>مراقبت طبیعی از پوست</h2>
+                        <p>محصولات طبیعی و ارگانیک برای مراقبت از پوست شما</p>
+                        <a href="category-skincare.html" class="btn btn-primary">محصولات پوست</a>
+                    </div>
+                </div>
             </div>
-            
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    آینده‌ای نو در
-                    <span class="title-accent">هوش مصنوعی</span>
-                </h1>
-                <p class="hero-description">
-                    با قدرت هوش مصنوعی پیشرفته، ایده‌های خود را به واقعیت تبدیل کنید.
-                    تکنولوژی‌ای که مرزهای ممکن را جابجا می‌کند.
-                </p>
-                
-                <!-- Interactive Element -->
-                <div class="hero-interactive">
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            class="hero-input" 
-                            id="hero-input"
-                            placeholder="ایده خود را توصیف کنید..."
-                            autocomplete="off"
-                        >
-                        <button class="generate-button" id="generate-button">
-                            <span class="button-text">تولید کن</span>
-                            <div class="button-loader"></div>
-                        </button>
+            <div class="slider-nav">
+                <button class="prev-btn"><i class="fas fa-chevron-right"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-left"></i></button>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>۱۰۰٪ طبیعی</h3>
+                        <p>تمام محصولات ما از مواد طبیعی و ارگانیک تهیه شده</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>ارسال سریع</h3>
+                        <p>ارسال رایگان برای سفارشات بالای ۵۰۰ هزار تومان</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>کیفیت تضمینی</h3>
+                        <p>ضمانت کیفیت و اصالت تمام محصولات</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>پشتیبانی ۲۴/۷</h3>
+                        <p>مشاوره رایگان و پشتیبانی در تمام ساعات روز</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section class="projects" id="projects">
+        <!-- Categories Section -->
+        <section class="categories">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">پروژه‌های ما</h2>
-                    <p class="section-description">
-                        نگاهی به آخرین دستاوردهای ما در زمینه هوش مصنوعی
-                    </p>
-                </div>
-                
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="card-icon">
-                            <div class="icon-placeholder">🤖</div>
+                <h2 class="section-title">دسته‌بندی محصولات</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="images/herbs.jpg" alt="گیاهان دارویی">
                         </div>
-                        <h3 class="card-title">چت‌بات هوشمند</h3>
-                        <p class="card-description">
-                            سیستم مکالمه پیشرفته با قابلیت درک زبان طبیعی فارسی
-                        </p>
-                        <a href="#" class="card-link">بیشتر بدانید</a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="card-icon">
-                            <div class="icon-placeholder">🎨</div>
+                        <div class="category-content">
+                            <h3>گیاهان دارویی</h3>
+                            <p>بیش از ۲۰۰ نوع گیاه دارویی اصیل</p>
+                            <a href="category-herbs.html" class="btn btn-outline">مشاهده همه</a>
                         </div>
-                        <h3 class="card-title">تولید تصویر</h3>
-                        <p class="card-description">
-                            ایجاد تصاویر منحصر به فرد با استفاده از هوش مصنوعی
-                        </p>
-                        <a href="#" class="card-link">بیشتر بدانید</a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="card-icon">
-                            <div class="icon-placeholder">📊</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="images/oils.jpg" alt="روغن‌های طبیعی">
                         </div>
-                        <h3 class="card-title">تحلیل داده</h3>
-                        <p class="card-description">
-                            ابزارهای پیشرفته برای تحلیل و پردازش حجم بالای داده
-                        </p>
-                        <a href="#" class="card-link">بیشتر بدانید</a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="card-icon">
-                            <div class="icon-placeholder">🔮</div>
+                        <div class="category-content">
+                            <h3>روغن‌های طبیعی</h3>
+                            <p>روغن‌های خالص و ارگانیک</p>
+                            <a href="category-oils.html" class="btn btn-outline">مشاهده همه</a>
                         </div>
-                        <h3 class="card-title">پیش‌بینی هوشمند</h3>
-                        <p class="card-description">
-                            سیستم‌های پیش‌بینی با دقت بالا برای کسب و کارها
-                        </p>
-                        <a href="#" class="card-link">بیشتر بدانید</a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="card-icon">
-                            <div class="icon-placeholder">🎵</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="images/skincare.jpg" alt="مراقبت از پوست">
                         </div>
-                        <h3 class="card-title">تولید صوت</h3>
-                        <p class="card-description">
-                            تبدیل متن به گفتار با کیفیت استودیویی
-                        </p>
-                        <a href="#" class="card-link">بیشتر بدانید</a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="card-icon">
-                            <div class="icon-placeholder">🧠</div>
+                        <div class="category-content">
+                            <h3>مراقبت از پوست</h3>
+                            <p>محصولات طبیعی برای پوست</p>
+                            <a href="category-skincare.html" class="btn btn-outline">مشاهده همه</a>
                         </div>
-                        <h3 class="card-title">یادگیری ماشین</h3>
-                        <p class="card-description">
-                            الگوریتم‌های پیشرفته برای حل مسائل پیچیده
-                        </p>
-                        <a href="#" class="card-link">بیشتر بدانید</a>
-                    </article>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="images/supplements.jpg" alt="مکمل‌های غذایی">
+                        </div>
+                        <div class="category-content">
+                            <h3>مکمل‌های غذایی</h3>
+                            <p>مکمل‌های طبیعی و گیاهی</p>
+                            <a href="category-supplements.html" class="btn btn-outline">مشاهده همه</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section class="about" id="about">
+        <!-- Featured Products -->
+        <section class="featured-products">
             <div class="container">
-                <div class="about-content">
-                    <div class="about-text">
-                        <h2 class="section-title">درباره ما</h2>
-                        <p class="about-paragraph">
-                            ما تیمی از متخصصان هوش مصنوعی هستیم که با هدف ایجاد تحولی بنیادین در صنعت تکنولوژی تشکیل شده‌ایم. رسالت ما توسعه راه‌حل‌هایی است که نه تنها مسائل امروز را حل کند، بلکه آینده‌ای بهتر را نیز شکل دهد.
-                        </p>
-                        <p class="about-paragraph">
-                            با بهره‌گیری از جدیدترین دستاوردهای علمی و تکنولوژیک، محصولاتی ارائه می‌دهیم که مرزهای ممکن را جابجا می‌کند. هر پروژه برای ما فرصتی است تا نوآوری کنیم و ارزش آفرینی کنیم.
-                        </p>
-                        <p class="about-paragraph">
-                            تیم ما متشکل از مهندسان نرم‌افزار، متخصصان یادگیری ماشین، طراحان تجربه کاربری و محققان هوش مصنوعی است که همگی با انگیزه‌ای واحد در جهت خلق آینده‌ای هوشمندتر تلاش می‌کنند.
-                        </p>
-                    </div>
-                    <div class="about-visual">
-                        <div class="about-image-placeholder">
-                            <div class="placeholder-content">
-                                <div class="visual-element"></div>
-                                <div class="visual-element"></div>
-                                <div class="visual-element"></div>
+                <h2 class="section-title">محصولات ویژه</h2>
+                <div class="products-carousel">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="images/product1.jpg" alt="زعفران اصیل">
+                            <div class="product-badges">
+                                <span class="badge sale">۲۰٪ تخفیف</span>
+                                <span class="badge organic">ارگانیک</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                                <button class="btn-icon"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
+                        <div class="product-content">
+                            <h3>زعفران اصیل قائنات</h3>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(۱۲۵ نظر)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">۱,۲۰۰,۰۰۰ تومان</span>
+                                <span class="original-price">۱,۵۰۰,۰۰۰ تومان</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart">افزودن به سبد</button>
+                        </div>
                     </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="images/product2.jpg" alt="روغن آرگان">
+                            <div class="product-badges">
+                                <span class="badge new">جدید</span>
+                                <span class="badge organic">ارگانیک</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                                <button class="btn-icon"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3>روغن آرگان خالص</h3>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span>(۸۹ نظر)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">۸۵۰,۰۰۰ تومان</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart">افزودن به سبد</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="images/product3.jpg" alt="عسل طبیعی">
+                            <div class="product-badges">
+                                <span class="badge organic">ارگانیک</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                                <button class="btn-icon"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3>عسل چندگیاه طبیعی</h3>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(۲۰۳ نظر)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">۳۲۰,۰۰۰ تومان</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart">افزودن به سبد</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="images/product4.jpg" alt="گل گاوزبان">
+                            <div class="product-badges">
+                                <span class="badge organic">ارگانیک</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                                <button class="btn-icon"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3>گل گاوزبان خشک</h3>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span>(۶۷ نظر)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">۱۵۰,۰۰۰ تومان</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart">افزودن به سبد</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-prev"><i class="fas fa-chevron-right"></i></button>
+                    <button class="carousel-next"><i class="fas fa-chevron-left"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="container">
+                <div class="newsletter-content">
+                    <div class="newsletter-text">
+                        <h2>عضو خبرنامه ما شوید</h2>
+                        <p>آخرین اخبار، تخفیف‌ها و محصولات جدید را از طریق ایمیل دریافت کنید</p>
+                    </div>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="ایمیل شما..." required>
+                        <button type="submit" class="btn btn-primary">عضویت</button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3 class="footer-title">لینک‌های سریع</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">خانه</a></li>
-                        <li><a href="#projects">پروژه‌ها</a></li>
-                        <li><a href="#about">درباره ما</a></li>
-                        <li><a href="#contact">تماس با ما</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3 class="footer-title">شبکه‌های اجتماعی</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link">📧</a>
-                        <a href="#" class="social-link">📱</a>
-                        <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">💼</a>
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>آلوتار</h3>
+                        <p>آلوتار بزرگترین فروشگاه آنلاین محصولات ارگانیک و طبیعی در ایران است. ما متعهد به ارائه بهترین محصولات طبیعی با بالاترین کیفیت هستیم.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-telegram"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <h3>AI<span class="logo-accent">نو</span></h3>
-                        <p>آینده‌ای نو در هوش مصنوعی</p>
+                    <div class="footer-col">
+                        <h4>دسته‌بندی‌ها</h4>
+                        <ul>
+                            <li><a href="category-herbs.html">گیاهان دارویی</a></li>
+                            <li><a href="category-oils.html">روغن‌های طبیعی</a></li>
+                            <li><a href="category-skincare.html">مراقبت از پوست</a></li>
+                            <li><a href="category-supplements.html">مکمل‌های غذایی</a></li>
+                            <li><a href="category-tea.html">چای‌های گیاهی</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>خدمات مشتریان</h4>
+                        <ul>
+                            <li><a href="about.html">درباره ما</a></li>
+                            <li><a href="contact.html">تماس با ما</a></li>
+                            <li><a href="faq.html">سوالات متداول</a></li>
+                            <li><a href="shipping.html">شیوه ارسال</a></li>
+                            <li><a href="returns.html">مرجوعی کالا</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>اطلاعات تماس</h4>
+                        <div class="contact-info">
+                            <p><i class="fas fa-map-marker-alt"></i> تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+                            <p><i class="fas fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                            <p><i class="fas fa-envelope"></i> info@aloatar.com</p>
+                            <p><i class="fas fa-clock"></i> شنبه تا پنج‌شنبه: ۹ تا ۱۸</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; ۲۰۲۵ تمام حقوق محفوظ است. ساخته شده با ❤️ توسط تیم AIنو</p>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; ۱۴۰۳ آلوتار. تمام حقوق محفوظ است.</p>
+                    <div class="payment-methods">
+                        <img src="images/payment1.png" alt="پرداخت آنلاین">
+                        <img src="images/payment2.png" alt="پرداخت آنلاین">
+                        <img src="images/payment3.png" alt="پرداخت آنلاین">
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
