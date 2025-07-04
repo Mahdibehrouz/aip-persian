@@ -85,39 +85,75 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Hero Slider -->
-        <section class="hero-slider">
-            <div class="slider-container">
-                <div class="slide active" style="background-image: url('images/slide1.jpg')">
-                    <div class="slide-content">
-                        <h2>طبیعت خالص برای زندگی سالم</h2>
-                        <p>بهترین محصولات ارگانیک و طبیعی را از آلوتار تهیه کنید</p>
-                        <a href="products.html" class="btn btn-primary">مشاهده محصولات</a>
+        <!-- Advanced Interactive Slider -->
+        <section class="advanced-slider">
+            <div class="slider-main-container">
+                <!-- Background Slide -->
+                <div class="main-slide" id="mainSlide">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-info">
+                        <div class="slide-location" id="slideLocation">استان تهران</div>
+                        <div class="slide-title" id="slideTitle">کوه‌های البرز</div>
+                        <div class="slide-subtitle" id="slideSubtitle">دامنه‌های سرسبز و طبیعت بکر برای گردآوری گیاهان دارویی اصیل</div>
+                        <button class="slide-cta" id="slideCTA">
+                            <i class="fas fa-play"></i>
+                            <span>کشف محصولات</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Navigation Controls -->
+                    <div class="slider-controls">
+                        <button class="nav-btn prev-slide" id="prevSlide">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="nav-btn next-slide" id="nextSlide">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Slide Counter -->
+                    <div class="slide-counter">
+                        <span class="current-slide">01</span>
+                        <span class="total-slides">04</span>
                     </div>
                 </div>
-                <div class="slide" style="background-image: url('images/slide2.jpg')">
-                    <div class="slide-content">
-                        <h2>گیاهان دارویی اصیل</h2>
-                        <p>مجموعه کاملی از گیاهان دارویی با کیفیت و اصالت تضمین شده</p>
-                        <a href="category-herbs.html" class="btn btn-primary">گیاهان دارویی</a>
+                
+                <!-- Thumbnail Gallery -->
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail-container">
+                        <div class="thumbnail active" data-slide="0" data-bg="images/alborz-mountains.jpg" data-location="استان تهران" data-title="کوه‌های البرز" data-subtitle="دامنه‌های سرسبز و طبیعت بکر برای گردآوری گیاهان دارویی اصیل">
+                            <img src="images/alborz-thumb.jpg" alt="کوه‌های البرز">
+                            <div class="thumb-info">
+                                <h4>کوه‌های البرز</h4>
+                                <p>گیاهان دارویی</p>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnail" data-slide="1" data-bg="images/damavand-peak.jpg" data-location="استان مازندران" data-title="قله دماوند" data-subtitle="بلندترین قله ایران و منطقه‌ای غنی از گیاهان کمیاب و ارزشمند">
+                            <img src="images/damavand-thumb.jpg" alt="قله دماوند">
+                            <div class="thumb-info">
+                                <h4>قله دماوند</h4>
+                                <p>گیاهان کوهستانی</p>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnail" data-slide="2" data-bg="images/caspian-forests.jpg" data-location="جنگل‌های شمال" data-title="جنگل‌های خزری" data-subtitle="جنگل‌های انبوه شمال ایران و منبع غنی از گیاهان دارویی مرطوبی">
+                            <img src="images/caspian-thumb.jpg" alt="جنگل‌های خزری">
+                            <div class="thumb-info">
+                                <h4>جنگل‌های خزری</h4>
+                                <p>گیاهان جنگلی</p>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnail" data-slide="3" data-bg="images/zagros-ranges.jpg" data-location="رشته کوه زاگرس" data-title="کوه‌های زاگرس" data-subtitle="منطقه‌ای کوهستانی با تنوع گیاهی فوق‌العاده و منشأ بسیاری از داروهای گیاهی">
+                            <img src="images/zagros-thumb.jpg" alt="کوه‌های زاگرس">
+                            <div class="thumb-info">
+                                <h4>کوه‌های زاگرس</h4>
+                                <p>گیاهان بومی</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="slide" style="background-image: url('images/slide3.jpg')">
-                    <div class="slide-content">
-                        <h2>مراقبت طبیعی از پوست</h2>
-                        <p>محصولات طبیعی و ارگانیک برای مراقبت از پوست شما</p>
-                        <a href="category-skincare.html" class="btn btn-primary">محصولات پوست</a>
-                    </div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="prev-btn"><i class="fas fa-chevron-right"></i></button>
-                <button class="next-btn"><i class="fas fa-chevron-left"></i></button>
-            </div>
-            <div class="slider-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
             </div>
         </section>
 

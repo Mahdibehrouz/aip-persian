@@ -5,52 +5,220 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ========================================
-    // Hero Slider Functionality
+    // Advanced Interactive Slider Functionality
     // ========================================
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    let currentSlide = 0;
+    const mainSlide = document.getElementById('mainSlide');
+    const slideLocation = document.getElementById('slideLocation');
+    const slideTitle = document.getElementById('slideTitle');
+    const slideSubtitle = document.getElementById('slideSubtitle');
+    const slideCTA = document.getElementById('slideCTA');
+    const prevSlideBtn = document.getElementById('prevSlide');
+    const nextSlideBtn = document.getElementById('nextSlide');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const currentSlideSpan = document.querySelector('.current-slide');
     
-    function showSlide(index) {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+    let currentSlideIndex = 0;
+    let isAnimating = false;
+    
+    // Slide data
+    const slideData = [
+        {
+            bg: 'images/alborz-mountains.jpg',
+            location: 'استان تهران',
+            title: 'کوه‌های البرز',
+            subtitle: 'دامنه‌های سرسبز و طبیعت بکر برای گردآوری گیاهان دارویی اصیل'
+        },
+        {
+            bg: 'images/damavand-peak.jpg',
+            location: 'استان مازندران',
+            title: 'قله دماوند',
+            subtitle: 'بلندترین قله ایران و منطقه‌ای غنی از گیاهان کمیاب و ارزشمند'
+        },
+        {
+            bg: 'images/caspian-forests.jpg',
+            location: 'جنگل‌های شمال',
+            title: 'جنگل‌های خزری',
+            subtitle: 'جنگل‌های انبوه شمال ایران و منبع غنی از گیاهان دارویی مرطوبی'
+        },
+        {
+            bg: 'images/zagros-ranges.jpg',
+            location: 'رشته کوه زاگرس',
+            title: 'کوه‌های زاگرس',
+            subtitle: 'منطقه‌ای کوهستانی با تنوع گیاهی فوق‌العاده و منشأ بسیاری از داروهای گیاهی'
+        }
+    ];
+    
+    // Animation function for content
+    function animateContent(element, delay) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(50px)';
         
-        // Add active class to current slide and dot
-        if (slides[index]) {
-            slides[index].classList.add('active');
-        }
-        if (dots[index]) {
-            dots[index].classList.add('active');
+        setTimeout(() => {
+            element.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, delay);
+    }
+    
+    // Update slide content with animation
+    function updateSlideContent(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        const data = slideData[index];
+        
+        // Fade out current content
+        const contentElements = [slideLocation, slideTitle, slideSubtitle, slideCTA];
+        contentElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+        });
+        
+        // Change background with smooth transition
+        setTimeout(() => {
+            mainSlide.style.backgroundImage = 'url(' + data.bg + ')';
+        }, 300);
+        
+        // Update content after background transition
+        setTimeout(() => {
+            slideLocation.textContent = data.location;
+            slideTitle.textContent = data.title;
+            slideSubtitle.textContent = data.subtitle;
+            
+            // Animate content back in with staggered timing
+            animateContent(slideLocation, 100);
+            animateContent(slideTitle, 200);
+            animateContent(slideSubtitle, 300);
+            animateContent(slideCTA, 400);
+            
+            // Update slide counter
+            currentSlideSpan.textContent = (index + 1).toString().padStart(2, '0');
+            
+            isAnimating = false;
+        }, 600);
+        
+        // Update active thumbnail
+        thumbnails.forEach(thumb => thumb.classList.remove('active'));
+        if (thumbnails[index]) {
+            thumbnails[index].classList.add('active');
         }
     }
     
+    // Navigate to specific slide
+    function goToSlide(index) {
+        if (index === currentSlideIndex || isAnimating) return;
+        
+        currentSlideIndex = index;
+        updateSlideContent(index);
+    }
+    
+    // Next slide function
     function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
+        const nextIndex = (currentSlideIndex + 1) % slideData.length;
+        goToSlide(nextIndex);
     }
     
+    // Previous slide function
     function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
+        const prevIndex = (currentSlideIndex - 1 + slideData.length) % slideData.length;
+        goToSlide(prevIndex);
     }
     
-    // Event listeners for slider navigation
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    // Event listeners for navigation buttons
+    if (nextSlideBtn) {
+        nextSlideBtn.addEventListener('click', nextSlide);
+    }
     
-    // Dot navigation
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            showSlide(currentSlide);
+    if (prevSlideBtn) {
+        prevSlideBtn.addEventListener('click', prevSlide);
+    }
+    
+    // Thumbnail click events
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', () => {
+            goToSlide(index);
+        });
+        
+        // Hover effect for thumbnails
+        thumbnail.addEventListener('mouseenter', () => {
+            if (index !== currentSlideIndex) {
+                thumbnail.style.opacity = '0.8';
+                thumbnail.style.transform = 'scale(0.95)';
+            }
+        });
+        
+        thumbnail.addEventListener('mouseleave', () => {
+            if (index !== currentSlideIndex) {
+                thumbnail.style.opacity = '0.6';
+                thumbnail.style.transform = 'scale(0.9)';
+            }
         });
     });
     
-    // Auto-play slider
-    setInterval(nextSlide, 5000);
+    // CTA button click event
+    if (slideCTA) {
+        slideCTA.addEventListener('click', () => {
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                width: 20px;
+                height: 20px;
+                left: 50%;
+                top: 50%;
+                margin-left: -10px;
+                margin-top: -10px;
+            `;
+            
+            slideCTA.style.position = 'relative';
+            slideCTA.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+            
+            // Navigate to products page
+            window.location.href = 'products.html';
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            nextSlide();
+        } else if (e.key === 'ArrowRight') {
+            prevSlide();
+        }
+    });
+    
+    // Auto-play slider (optional)
+    let autoPlayInterval;
+    
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 8000);
+    }
+    
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+    
+    // Pause auto-play on hover
+    if (mainSlide) {
+        mainSlide.addEventListener('mouseenter', stopAutoPlay);
+        mainSlide.addEventListener('mouseleave', startAutoPlay);
+    }
+    
+    // Start auto-play
+    startAutoPlay();
+    
+    // Initialize first slide
+    setTimeout(() => {
+        updateSlideContent(0);
+    }, 500);
     
     // ========================================
     // Product Carousel Functionality
